@@ -7,6 +7,7 @@ import {
   FaTwitter,
   FaXmark,
 } from "react-icons/fa6";
+import "../App.css";
 
 const Navbar = () => {
   // nav items
@@ -20,11 +21,6 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    console.log(isMenuOpen);
-  };
-
   return (
     <header className="bg-black text-white fixed top-0 left-0 right-0">
       <nav className="p-4 max-w-7xl mx-auto flex justify-between items-center">
@@ -36,7 +32,12 @@ const Navbar = () => {
         <ul className="md:flex gap-12 text-lg hidden">
           {navItems.map(({ id, path, link }) => (
             <li key={id}>
-              <NavLink to={path}>{link}</NavLink>
+              <NavLink
+                to={path}
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                {link}
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -59,11 +60,31 @@ const Navbar = () => {
 
         {/* mobile menu */}
         <div>
-          <button className="md:hidden" onClick={toggleMenu}>
+          <button
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
             {isMenuOpen ? <FaXmark size={25} /> : <FaBars size={25} />}
           </button>
         </div>
       </nav>
+
+      {/* menu items for mobile */}
+      <div>
+        <ul
+          className={`md:hidden gap-12 text-lg block space-y-4 px-4 py-6 mt-14 bg-white ${
+            isMenuOpen ? "fixed top-2 left-0 right-0 w-full" : "hidden"
+          }`}
+        >
+          {navItems.map(({ id, path, link }) => (
+            <li key={id} className="text-black">
+              <NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={path}>
+                {link}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </div>
     </header>
   );
 };
