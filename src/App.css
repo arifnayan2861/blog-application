@@ -36,6 +36,10 @@
   color: white;
 }
 
+.active-button {
+  color: #fc3c1a;
+}
+
 /* .activePagination {
   @apply
 } */
