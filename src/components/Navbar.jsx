@@ -8,6 +8,7 @@ import {
   FaXmark,
 } from "react-icons/fa6";
 import "../App.css";
+import Modal from "./Modal";
 
 const Navbar = () => {
   // nav items
@@ -20,6 +21,14 @@ const Navbar = () => {
   ];
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <header className="bg-black text-white fixed top-0 left-0 right-0">
@@ -53,10 +62,15 @@ const Navbar = () => {
           <a href="/" className="hover:text-orange-400">
             <FaInstagram size={25} />
           </a>
-          <button className="bg-orange-400 px-6 py-2 rounded-lg font-medium hover:bg-white hover:text-orange-400 transition-all duration-200 ease-in">
+          <button
+            onClick={openModal}
+            className="bg-orange-400 px-6 py-2 rounded-lg font-medium hover:bg-white hover:text-orange-400 transition-all duration-200 ease-in"
+          >
             Log In
           </button>
         </div>
+
+        <Modal isOpen={isModalOpen} onClose={closeModal} />
 
         {/* mobile menu */}
         <div>
